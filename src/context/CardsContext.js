@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 
-const Context = React.createContext({
-  cards: [],
-  filters: [],
-});
+const Context = React.createContext({});
 
-export const CardContext = ({ children }) => {
+export const CardsContextProvider = ({ children }) => {
   const [cards, setCards] = useState([]);
   const [filters, setFilters] = useState([]);
 
@@ -14,6 +11,8 @@ export const CardContext = ({ children }) => {
       value={{
         cards,
         filters,
+        setCards,
+        setFilters,
       }}
     >
       {children}

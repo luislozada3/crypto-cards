@@ -1,0 +1,10 @@
+.content-description-card {
+  font-size: 1em;
+  color: $textColorGrey;
+  &__text {
+    font-weight: 700;
+  }
+  &__text2 {
+    font-weight: 400;
+  }
+}

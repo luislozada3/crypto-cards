@@ -1,0 +1,17 @@
+.content-go-back {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100px;
+  &:hover {
+    cursor: pointer;
+  }
+  &__icon {
+    font-size: 1.2em;
+  }
+  &__text {
+    color: $textColorLight;
+    font-size: 1.2em;
+    margin-left: .5em;
+  }
+}

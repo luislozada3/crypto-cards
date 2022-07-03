@@ -1,0 +1,22 @@
+//utilities
+@import './utilities/variables';
+@import './utilities/mixin';
+
+//base
+@import './base/base';
+@import './base/normalize';
+@import './base/font';
+
+//components
+@import '../components/Wapper/wrapper';
+@import '../components/Button/button';
+@import '../components/CardList/list';
+@import '../components/Board/board';
+@import '../components/Card/card';
+@import '../components/Pagination/pagination';
+@import '../components/SearchBar/searchBar';
+@import '../components/GoBack/goBack';
+@import '../components/DescriptionCard/DescriptionCard';
+
+//pages 
+@import '../pages/Details/pageDetails';

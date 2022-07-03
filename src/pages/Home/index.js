@@ -1,7 +1,12 @@
+import Wrapper from '../../components/Wapper';
+import SearchBar from '../../components/SearchBar';
+import Board from "../../components/Board"
+
 export default function Home () {
   return (
-    <div>
-      home
-    </div>
+    <Wrapper>
+      <SearchBar/>
+      <Board/>
+    </Wrapper>
   )
 }

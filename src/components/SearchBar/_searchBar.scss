@@ -1,0 +1,28 @@
+.search-bar {
+  margin: 1em 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  &__content-input {
+    width: 100%;
+    border: 1px solid $textColorLight;
+    position: relative;
+  }
+  &__input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    color: $textColorGrey;
+    outline: none;
+    padding: .6em 1em .6em 2.5em;
+    &::placeholder {
+      color: $textColorGrey;
+    }
+  }
+  &__icon {
+    position: absolute;
+    left: .5em;
+    top: 9.05px;
+    font-size: 1.2em;
+  }
+}
