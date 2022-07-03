@@ -4,25 +4,14 @@
     width: 100%;
     margin: 1em 0px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center; 
-    &:hover {
-      cursor: pointer;
-    }
   }
   &__title {
     color: $textColorLight;
     font-weight: 400;
     margin: 0;
     padding: 0;
-  }
-  &__icon-arrow {
-    width: 20px;
-    height: 20px;
-    transition: transform .3s ease;
-    &--close {
-      transform: rotate(180deg);
-    }
   }
   &__message-error {
     color: white;

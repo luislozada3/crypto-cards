@@ -1,3 +1,6 @@
+export const MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW = 5;
+export const MAX_CARDS_TO_SHOW = 12;
+
 export const groupCardsByType = (cards) => {
   const cardsGroupedByType = cards.reduce((cardAcc, card) => {
     const { CardType } = card;

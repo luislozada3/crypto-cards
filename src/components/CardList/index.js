@@ -1,15 +1,17 @@
 import usePaginationCards from "../../hooks/usePaginationCards";
 
+import { MAX_CARDS_TO_SHOW } from "../../helpers";
+
 import Card from "../Card";
 import Pagination from "../Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function CardList({ title, cards = [] }) {
   const { nextPage, prevPage, pagination, cardsImgToShow, selectedPage } =
     usePaginationCards({
       cards,
-      numberOfCardsToShow: 12,
+      numberOfCardsToShow: MAX_CARDS_TO_SHOW,
     });
 
   const handleToggleCardList = () => {};
@@ -18,11 +20,6 @@ export default function CardList({ title, cards = [] }) {
     <div className="list">
       <div className="list__container-title" onClick={handleToggleCardList}>
         <h1 className="list__title"> {title}</h1>
-        <FontAwesomeIcon
-          icon={faChevronDown}
-          color="white"
-          className={`list__icon-arrow`}
-        />
       </div>
 
       {cardsImgToShow.length ? (
@@ -43,7 +40,7 @@ export default function CardList({ title, cards = [] }) {
         </p>
       )}
 
-      {cardsImgToShow.length && (
+      {cards.length >= MAX_CARDS_TO_SHOW && (
         <Pagination
           selectedPage={selectedPage}
           nextPage={nextPage}

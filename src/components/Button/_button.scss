@@ -8,4 +8,7 @@
   &:hover {
     cursor: pointer;
   }
+  &.active {
+    color: $textColorLight;
+  }
 }

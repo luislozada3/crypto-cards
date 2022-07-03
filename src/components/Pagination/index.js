@@ -1,34 +1,93 @@
+import { useEffect, useState } from "react";
 import Button from "../Button";
+import { MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW } from "../../helpers";
+
 export default function Pagination({
   nextPage,
   prevPage,
   selectedPage,
   pagination,
 }) {
-  const maxButtonPageToShow = 5;
-  const { activePage, totalPages } = pagination;
-  const remainingPages = totalPages - activePage;
+  const { activePage, numberOfCardsToShow, totalCards, totalPages } =
+    pagination;
+  const [buttonsToShow, setButtonsToShow] = useState([]);
+  const [hasNextButton, setHasNextButton] = useState(false);
+  const [hasPrevButton, setHasPrevButton] = useState(false);
 
-  const totalButtonToSHow =
-    remainingPages >= maxButtonPageToShow
-      ? maxButtonPageToShow
-      : remainingPages;
+  useEffect(() => {
+    const remainingPages = totalPages - activePage;
+    const hasNextPage = remainingPages > 0;
+    const hasPrevPage = activePage === 1 ? false : activePage <= totalPages;
 
-  const buttonToShow = () => {
+    setHasNextButton(hasNextPage);
+    setHasPrevButton(hasPrevPage);
+  }, [pagination]);
 
-    const buttons = new Array(5).fill(activePage);
+  const getPaginationGroup = () => {
+    let start = activePage;
+    let pageLimit = MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW;
+    if (totalPages <= MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW) {
+      pageLimit = totalPages;
+    }
 
-    return buttons.map( (numberPage, index) => {
-      return (
-        <Button key={`${numberPage}-${index}`} onClick={() => selectedPage(numberPage)}>{numberPage}</Button>
-      );
-    });
-  }
-  
+    start =
+      start + (MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW - 1) <= totalPages
+        ? start
+        : activePage;
+
+    if (start + (MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW - 1) >= totalPages) {
+      start =
+        totalPages - MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW < 0
+          ? 1
+          : totalPages - MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW + 1;
+    }
+
+    const buttons = new Array(pageLimit).fill().map((a, i) => i + start);
+
+    if (buttons.length > 1) {
+      return buttons.map((selectedPageNumber) => {
+        if (activePage === selectedPageNumber) {
+          return (
+            <Button
+              className={"active"}
+              onClick={() => selectedPage(selectedPageNumber)}
+            >
+              {" "}
+              {selectedPageNumber}{" "}
+            </Button>
+          );
+        }
+        return (
+          <Button
+            className={activePage && "--active"}
+            onClick={() => selectedPage(selectedPageNumber)}
+          >
+            {" "}
+            {selectedPageNumber}{" "}
+          </Button>
+        );
+      });
+    }
+  };
+
+  getPaginationGroup();
 
   return (
     <div className="pagination">
-      {buttonToShow()}
+      <div className="pagination__buttons">
+        {hasPrevButton && <Button onClick={() => prevPage()}> {"<"} </Button>}
+
+        {getPaginationGroup()}
+
+        {hasNextButton && <Button onClick={() => nextPage()}> {">"} </Button>}
+      </div>
+
+      <div className="pagination__legend">
+        <p className="pagination__text">
+          Current Page: <span className="pagination__record">{activePage}</span>{" "}
+          Total Pages: <span className="pagination__record">{totalPages}</span>
+        </p>
+      </div>
     </div>
   );
 }

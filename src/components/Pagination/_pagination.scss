@@ -1,9 +1,22 @@
 .pagination {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 1em 0;
-  @media screen and (min-width: 768px) {
-    justify-content: flex-end;
+  font-weight: 700;
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+  &__legend {
+    color: $textColorGrey;
+    text-align: center;
+  }
+  &__text {
+    text-transform: capitalize;
+  }
+  &__record {
+    color: $textColorLight;
   }
 }
