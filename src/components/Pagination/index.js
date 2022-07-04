@@ -10,7 +10,6 @@ export default function Pagination({
 }) {
   const { activePage, numberOfCardsToShow, totalCards, totalPages } =
     pagination;
-  const [buttonsToShow, setButtonsToShow] = useState([]);
   const [hasNextButton, setHasNextButton] = useState(false);
   const [hasPrevButton, setHasPrevButton] = useState(false);
 
@@ -45,21 +44,11 @@ export default function Pagination({
     const buttons = new Array(pageLimit).fill().map((a, i) => i + start);
 
     if (buttons.length > 1) {
-      return buttons.map((selectedPageNumber) => {
-        if (activePage === selectedPageNumber) {
-          return (
-            <Button
-              className={"active"}
-              onClick={() => selectedPage(selectedPageNumber)}
-            >
-              {" "}
-              {selectedPageNumber}{" "}
-            </Button>
-          );
-        }
+      return buttons.map((selectedPageNumber, index) => {
         return (
           <Button
-            className={activePage && "--active"}
+            key={`${selectedPageNumber}-${index}`}
+            className={activePage === selectedPageNumber && "active"}
             onClick={() => selectedPage(selectedPageNumber)}
           >
             {" "}
@@ -68,9 +57,9 @@ export default function Pagination({
         );
       });
     }
-  };
 
-  getPaginationGroup();
+    return null;
+  };
 
   return (
     <div className="pagination">

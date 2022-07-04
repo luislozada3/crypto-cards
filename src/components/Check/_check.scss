@@ -1,0 +1,31 @@
+.container-checkbox {
+  &__label {
+    position: relative;
+    color: $textColorGrey;
+    padding-left: 1.6em;
+    &:hover {
+      cursor: pointer;
+    }
+    &::before {
+      content: "";
+      border: 1px solid $primaryColor;
+      width: 1.2em;
+      height: 1.2em;
+      position: absolute;
+      left: 0;
+      bottom: 1.5px;
+      border-radius: 0.1em;
+    }
+  }
+  &__input {
+    display: none;
+    &:checked {
+      + label::before {
+        background-color: $primaryColor;
+     }
+     + label {
+      color: $textColorLight;
+   }
+    } 
+  }
+}
