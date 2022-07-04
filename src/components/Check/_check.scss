@@ -5,6 +5,7 @@
     padding-left: 1.6em;
     &:hover {
       cursor: pointer;
+      color: $primaryColor;
     }
     &::before {
       content: "";

@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 const Home = lazy(() => import("../pages/Home"));
 const SearchResult = lazy(() => import("../pages/SearchResult"));
@@ -18,6 +18,8 @@ export default function Router() {
           </Route>
 
           <Route path="/details/:cardId" element={<Details />} />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
