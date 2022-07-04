@@ -8,11 +8,11 @@ export const FILTERS = [
   },
   {
     category: "FACTIONS",
-    subcategories: ["Awaken", "Entropy", "Inhumon", "Owner", "Undeviant"],
+    subcategories: ["Awaken", "Entropy", "Inhuman", "Owner", "Undeviant"],
   },
   {
     category: "RARITY",
-    subcategories: ["Lengendary", "Rare", "Uncommon", "Common"],
+    subcategories: ["Legendary", "Rare", "Uncommon", "Common"],
   },
 ];
 

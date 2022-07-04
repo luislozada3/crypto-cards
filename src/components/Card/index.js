@@ -1,7 +1,8 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { getUrlImgCard } from "../../helpers";
 
-export default function Card({ card, ...props }) {
+function Card({ card, ...props }) {
   const formatImg = card.CardType === "HQ" || card.Rarity === "Common" ? "png" : "gif";
 
   return (
@@ -15,3 +16,7 @@ export default function Card({ card, ...props }) {
     </Link>
   );
 }
+
+export default React.memo(Card, (prevProps, nextProps) => {
+  return prevProps.card.id === nextProps.card.id
+});
