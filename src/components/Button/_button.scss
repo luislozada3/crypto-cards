@@ -1,12 +1,14 @@
 .button {
   padding: .5em 1em;
-  border: none;
+  border: 1px solid $primaryColor;
   background-color: $primaryColor;
   color: $textColorDark;
   margin: 0 .5em;
   font-weight: bold;
+  transition: border-color .3s ease;
   &:hover {
     cursor: pointer;
+    border-color: $textColorLight;
   }
   &.active {
     color: $textColorLight;

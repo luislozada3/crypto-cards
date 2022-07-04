@@ -1,13 +1,14 @@
-import Wrapper from "../../components/Wapper"
-import SearchBar from "../../components/SearchBar"
-import Board from "../../components/Board"
+import Wrapper from "../../components/Wapper";
+import SearchBar from "../../components/SearchBar";
+import Filters from "../../components/Filters";
+import Board from "../../components/Board";
 
-export default function SearchResult () {
-
+export default function SearchResult() {
   return (
     <Wrapper>
-      <SearchBar/>
-      <Board/>
+      <SearchBar />
+      <Filters />
+      <Board />
     </Wrapper>
-  )
+  );
 }

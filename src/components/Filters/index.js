@@ -1,19 +1,46 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext } from "react";
+import CardsContext from "../../context/CardsContext";
+
 import { FILTERS } from "../../helpers";
+
 import Check from "../Check";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronUp, faRotate } from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 export default function Filters() {
+  const { filters, setFilters } = useContext(CardsContext);
   const [isOpenMenu, setIsCloseMenu] = useState(false);
 
-  const Subcategories = (subcategories) => {
+  const hanldeCheck = (isChecked, category, subcategory) => {
+    const subcategoryIsInTheFilters = filters[category].includes(subcategory);
+    if (isChecked && !subcategoryIsInTheFilters) {
+      setFilters({
+        ...filters,
+        [category]: [...filters[category], subcategory]
+      });
+    }
+
+    if (!isChecked && subcategoryIsInTheFilters) {
+      setFilters({
+        ...filters,
+        [category]: filters[category].filter( filter => filter !== subcategory)
+      });
+    }
+  };
+
+  const Subcategories = (category, subcategories) => {
     return (
       <ul className="filters__list-subcateories">
         {subcategories.map((subcategory) => {
           return (
             <li className="filters__item" key={subcategory}>
-              <Check id={subcategory} name={subcategory} />
+              <Check
+                id={subcategory}
+                name={subcategory}
+                onChange={(isChecked) =>
+                  hanldeCheck(isChecked, category, subcategory)
+                }
+              />
             </li>
           );
         })}
@@ -26,12 +53,14 @@ export default function Filters() {
   };
 
   const addStyleOpenMenu = useMemo(() => {
-    const style = isOpenMenu ? { height: "441.28px" } : { height: "0" };
+    const style = isOpenMenu ? { height: "460px" } : { height: "0" };
     return style;
   }, [isOpenMenu]);
 
   const addStyleOpenMenuChevron = useMemo(() => {
-    const style = isOpenMenu ? { transform: "rotate(180deg)" } : { transform: "rotate(0deg)" };
+    const style = isOpenMenu
+      ? { transform: "rotate(180deg)" }
+      : { transform: "rotate(0deg)" };
     return style;
   }, [isOpenMenu]);
 
@@ -51,7 +80,7 @@ export default function Filters() {
           return (
             <div className="filters__category" key={filter.category}>
               <h2 className="filters__subtitle">{filter.category}</h2>
-              {Subcategories(filter.subcategories)}
+              {Subcategories(filter.category, filter.subcategories)}
             </div>
           );
         })}

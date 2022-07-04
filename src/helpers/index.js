@@ -4,7 +4,7 @@ export const MAX_CARDS_TO_SHOW = 12;
 export const FILTERS = [
   {
     category: "CARD TYPE",
-    subcategories: ["Character", "Technology"],
+    subcategories: ["Character", "Technology", "HQ"],
   },
   {
     category: "FACTIONS",
@@ -42,6 +42,13 @@ export const filterCardByKeyword = (cards = [], keyword) => {
     const nameUppercase = card.Name.toUpperCase();
     return nameUppercase.includes(keywordUpperCase);
   });
+};
+
+export const filterCards = (cards = [], typeFilter, filters) => {
+  if (filters.length === 0) {
+    return cards;
+  }
+  return cards.filter((card) => filters.includes(card[typeFilter]));
 };
 
 export const getUrlImgCard = (cardId, formatImg) =>

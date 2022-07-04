@@ -2,10 +2,10 @@ import { useContext, useState, useEffect } from "react";
 import CardsContext from "../context/CardsContext";
 import { useParams } from "react-router-dom";
 
-import { groupCardsByType, filterCardByKeyword } from "../helpers";
+import { groupCardsByType, filterCardByKeyword, filterCards } from "../helpers";
 
 export default function useGroupCardsByType() {
-  const { cards } = useContext(CardsContext);
+  const { cards, filters } = useContext(CardsContext);
   const { keyword } = useParams();
   const [cardsForTypes, setCardsForTypes] = useState({
     HQ: [],
@@ -14,15 +14,20 @@ export default function useGroupCardsByType() {
   });
 
   useEffect(() => {
-    const cardsToGroup =
+    const cardsFiltersByKeyword =
       keyword !== "" ? filterCardByKeyword(cards, keyword) : cards;
-    const cardsGroupedByType = groupCardsByType(cardsToGroup);
+
+    const cardsFilterByCardType = filterCards(cardsFiltersByKeyword, "CardType", filters["CARD TYPE"]);
+    const cardsFilterByFaction = filterCards(cardsFilterByCardType, "Faction", filters["FACTIONS"]);
+    const cardsFilterByRarity = filterCards(cardsFilterByFaction, "Rarity", filters["RARITY"]);
+
+    const cardsGroupedByType = groupCardsByType(cardsFilterByRarity);
     setCardsForTypes({
       HQ: cardsGroupedByType.HQ ?? [],
       Character: cardsGroupedByType.Character ?? [],
       Technology: cardsGroupedByType.Technology ?? [],
     });
-  }, [cards, keyword]);
+  }, [cards, keyword, filters]);
 
   return cardsForTypes;
 }
