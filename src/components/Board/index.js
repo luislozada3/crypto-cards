@@ -31,7 +31,7 @@ export default function Board() {
               color="white"
               className={`list__icon-search`}
             />
-            No se consiguieron coincidencias
+            No matches were achieved
           </p>
         )}
     </div>

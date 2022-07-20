@@ -28,15 +28,17 @@ function CardList({ title, cards = [] }) {
           ))}
         </div>
       ) : (
-        <p className="list__message-error">
-          {" "}
-          <FontAwesomeIcon
-            icon={faSearch}
-            color="white"
-            className={`list__icon-search`}
-          />
-          No se consiguieron coincidencias
-        </p>
+        <div className="list__container-message">
+          <p className="list__message-error">
+            {" "}
+            <FontAwesomeIcon
+              icon={faSearch}
+              color="white"
+              className={`list__icon-search`}
+            />
+            No matches were achieved
+          </p>
+        </div>
       )}
 
       {cards.length >= MAX_CARDS_TO_SHOW && (
