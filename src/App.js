@@ -6,13 +6,13 @@ function App() {
   
   if ( isLoadingCards ) {
     return (
-      <p style={{color: "white"}}>Cargando...</p>
+      <p style={{color: "white"}}>loading application...</p>
     )
   }
 
   if (hasError) {
     return (
-      <p style={{color: "red"}}>Ha ocurrido un error recargue la pagina por favor</p>
+      <p style={{color: "red"}}>An error has occurred, please reload the page</p>
     );
   }
 
