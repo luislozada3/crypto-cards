@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Splash from './../components/Splash';
 
 const Home = lazy(() => import("../pages/Home"));
 const SearchResult = lazy(() => import("../pages/SearchResult"));
@@ -8,7 +9,7 @@ const Details = lazy(() => import("../pages/Details"));
 export default function Router() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<p> Loading...</p>}>
+      <Suspense fallback={<Splash/>}>
         <Routes>
           <Route path="/" exact element={<Home />} />
 
