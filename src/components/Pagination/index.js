@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import Button from "../Button";
 import { MAX_NUMBER_OF_PAGINATION_BUTTONS_TO_SHOW } from "../../helpers";
 
-export default function Pagination({
+function Pagination({
   nextPage,
   prevPage,
   selectedPage,
   pagination,
 }) {
-  const { activePage, numberOfCardsToShow, totalCards, totalPages } =
+  const { activePage, totalPages } =
     pagination;
   const [hasNextButton, setHasNextButton] = useState(false);
   const [hasPrevButton, setHasPrevButton] = useState(false);
@@ -20,7 +20,7 @@ export default function Pagination({
 
     setHasNextButton(hasNextPage);
     setHasPrevButton(hasPrevPage);
-  }, [pagination]);
+  }, [activePage, totalPages]);
 
   const getPaginationGroup = () => {
     let start = activePage;
@@ -80,3 +80,5 @@ export default function Pagination({
     </div>
   );
 }
+
+export default memo(Pagination);

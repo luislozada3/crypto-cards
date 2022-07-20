@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function usePaginationCards({
   cards,
@@ -10,55 +10,54 @@ export default function usePaginationCards({
     totalCards: cards.length,
     activePage: 1,
   });
+  const { activePage, numberOfCardsToShow: paginationNumberOfCardsToShow } =
+    pagination;
   const [cardsImgToShow, setCardsImgToShow] = useState([]);
 
   useEffect(() => {
-    const { activePage, numberOfCardsToShow } = pagination;
-    const endPoint = activePage * numberOfCardsToShow;
-    const startPoint = endPoint - numberOfCardsToShow;
+    const endPoint = activePage * paginationNumberOfCardsToShow;
+    const startPoint = endPoint - paginationNumberOfCardsToShow;
     const selectedCards = cards.slice(startPoint, endPoint);
     setCardsImgToShow(selectedCards);
-  }, [cards, pagination.activePage]);
+  }, [cards, activePage, paginationNumberOfCardsToShow]);
 
   useEffect(() => {
     if (cards.length) {
-      const { numberOfCardsToShow } = pagination;
-
       const totalCards = cards.length;
-      const totalPages = Math.ceil(totalCards / numberOfCardsToShow);
+      const totalPages = Math.ceil(totalCards / paginationNumberOfCardsToShow);
 
-      setPagination({
-        ...pagination,
+      setPagination((prevPagination) => ({
+        ...prevPagination,
         totalCards,
         totalPages,
-      });
+      }));
     }
-  }, [cards.length]);
+  }, [cards.length, setPagination, paginationNumberOfCardsToShow]);
 
-  const nextPage = () => {
+  const nextPage = useCallback( () => {
     if (pagination.activePage < pagination.totalPages) {
       setPagination((prev) => ({
         ...prev,
         activePage: prev.activePage + 1,
       }));
     }
-  };
+  }, [pagination, setPagination])
 
-  const prevPage = () => {
-    if (pagination.activePage > 1) {
+  const prevPage = useCallback(() => {
+    if (activePage > 1) {
       setPagination((prev) => ({
         ...prev,
         activePage: prev.activePage - 1,
       }));
     }
-  };
+  }, [setPagination, activePage]);
 
-  const selectedPage = (numberPage) => {
+  const selectedPage = useCallback( (numberPage) => {
     setPagination((prev) => ({
       ...prev,
       activePage: numberPage,
     }));
-  };
+  }, [setPagination]);
 
   return {
     nextPage,

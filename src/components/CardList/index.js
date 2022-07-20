@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import usePaginationCards from "../../hooks/usePaginationCards";
 
 import { MAX_CARDS_TO_SHOW } from "../../helpers";
@@ -7,18 +8,16 @@ import Pagination from "../Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-export default function CardList({ title, cards = [] }) {
+function CardList({ title, cards = [] }) {
   const { nextPage, prevPage, pagination, cardsImgToShow, selectedPage } =
     usePaginationCards({
       cards,
       numberOfCardsToShow: MAX_CARDS_TO_SHOW,
     });
 
-  const handleToggleCardList = () => {};
-
   return (
     <div className="list">
-      <div className="list__container-title" onClick={handleToggleCardList}>
+      <div className="list__container-title">
         <h1 className="list__title"> {title}</h1>
       </div>
 
@@ -51,3 +50,5 @@ export default function CardList({ title, cards = [] }) {
     </div>
   );
 }
+
+export default memo(CardList);
